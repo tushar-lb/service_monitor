@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: request-monitor
+  namespace: test
+  labels:
+    app.kubernetes.io/component: request-monitor
+spec:
+  selector:
+    app.kubernetes.io/component: request-monitor
+  ports:
+    - name: req-mon-rest
+      protocol: TCP
+      port: 10001
+      targetPort: 10001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-monitor
+  namespace: test
+  labels:
+    app.kubernetes.io/component: request-monitor
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: request-monitor
+  replicas: 1
+  minReadySeconds: 0
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: request-monitor
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: requestmonitor/enabled
+                operator: NotIn
+                values:
+                - "false"
+      containers:
+      - name: request-monitor
+        image: tusharraut/request-monitor:1.0.0
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 10001
+          initialDelaySeconds: 10
+          timeoutSeconds: 120
+          periodSeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 10001
+          initialDelaySeconds: 10
+          timeoutSeconds: 120
+          periodSeconds: 20
+        ports:
+          - name: req-mon-rest
+            containerPort: 10001
+        command:
+        - /request-monitor
+      imagePullSecrets:
+        - name: docregistry-secret
+      restartPolicy: Always
