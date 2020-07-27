@@ -48,7 +48,7 @@ spec:
   serviceAccountName: prometheus
   serviceMonitorSelector:
     matchLabels:
-      name: request-monitor-sm
+      name: internal-service-monitor-sm
   ruleSelector:
     matchLabels:
       prometheus: test

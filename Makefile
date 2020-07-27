@@ -1,5 +1,5 @@
 DOCKER_HUB_REPO?=tusharraut
-DOCKER_HUB_REGISTRY_IMAGE?=request-monitor
+DOCKER_HUB_REGISTRY_IMAGE?=internal-service-monitor
 DOCKER_HUB_REGISTRY_TAG?=1.0.0
 
 REGISTRY_IMG=$(DOCKER_HUB_REPO)/$(DOCKER_HUB_REGISTRY_IMAGE):$(DOCKER_HUB_REGISTRY_TAG)
@@ -14,11 +14,11 @@ BUILD_OPTIONS := -ldflags=$(LDFLAGS)
 
 .DEFAULT_GOAL: all
 
-all: request-monitor lint 
+all: internal-service-monitor lint 
 
-request-monitor:
+internal-service-monitor:
 	@echo "Bin directory: $(BIN)"
-	CGO_ENABLED=0 go build $(BUILD_OPTIONS) -o $(BIN)/request-monitor
+	CGO_ENABLED=0 go build $(BUILD_OPTIONS) -o $(BIN)/internal-service-monitor
 
 container:
 	@echo "Building container: docker build --tag $(REGISTRY_IMG) -f Dockerfile ."

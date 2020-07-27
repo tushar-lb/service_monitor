@@ -50,7 +50,7 @@ func getURLDetails(url string) {
 }
 
 func main() {
-	logrus.Infof("request monitor started..")
+	logrus.Infof("internal-service-monitor started..")
 	logrus.Infof("200 success request:")
 	getURLDetails(request200)
 	logrus.Infof("503 service unreachable request:")

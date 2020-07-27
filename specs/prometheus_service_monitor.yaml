@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: internal-service-monitor-sm
+  namespace: test
+  labels:
+    name: test
+    prometheus: test
+spec: 
+  selector:
+    matchLabels:
+      name: test
+  namespaceSelector:
+    any: true
+  endpoints:
+  - port: url-req-mon-rest

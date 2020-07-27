@@ -1,4 +1,4 @@
-module github.com/tusharraut1994/request-monitor
+module github.com/tusharraut1994/internal-service-monitor
 
 go 1.14
 

@@ -1,4 +1,4 @@
 FROM registry.access.redhat.com/ubi8/ubi:latest
 
-COPY bin/request-monitor /
+COPY bin/internal-service-monitor /
 WORKDIR /

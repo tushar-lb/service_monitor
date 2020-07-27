@@ -1,4 +1,4 @@
-# REQUEST MONITOR
+# INTERNAL SERVICE MONITOR
 
 Monitor internal request urls and expose prometheus metrics and build visualizations, dashboards.
 
@@ -23,13 +23,13 @@ $ make
 $ make container deploy
 ```
 
-## Deploy request_monitor deployment and service on kubernetes
+## Deploy internal-service-monitor deployment and service on kubernetes
 ```console
-$ kubectl apply -f specs/request_monitor.yaml
+$ kubectl apply -f specs/internal_service_monitor.yaml
 ```
 
 ## Create prometheus service monitor
 ```console
-$ kubectl apply -f specs/service_monitor.yaml
+$ kubectl apply -f specs/prometheus_service_monitor.yaml
 ```
 
