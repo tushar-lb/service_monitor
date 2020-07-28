@@ -4,13 +4,14 @@ metadata:
   name: internal-service-monitor-sm
   namespace: test
   labels:
-    name: test
-    prometheus: test
+    name: internal-service-monitor-sm
+    prometheus: internal-service-monitor
 spec: 
   selector:
     matchLabels:
-      name: test
+      name: internal-service-monitor
   namespaceSelector:
     any: true
   endpoints:
-  - port: url-req-mon-rest
+  - port: url-rest
+    targetPort: 10001

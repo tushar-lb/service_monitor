@@ -34,7 +34,7 @@ func getURLDetails(url string) {
 	}
 	responseTime := float64(time.Since(start).Milliseconds())
 	statusCode := resp.StatusCode
-	logrus.Infof("URL: [%s], Response time:[%d], Status code:[%d]", url, responseTime, statusCode)
+	logrus.Infof("URL: [%s], Response time:[%f], Status code:[%d]", url, responseTime, statusCode)
 	if statusCode == 503 {
 		sampleExternalURLUp.With(prometheus.Labels{"url": url})
 	} else {

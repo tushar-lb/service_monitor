@@ -47,11 +47,11 @@ spec:
   logLevel: debug
   serviceAccountName: prometheus
   serviceMonitorSelector:
-    matchLabels:
-      name: internal-service-monitor-sm
-  ruleSelector:
-    matchLabels:
-      prometheus: test
+      matchExpressions:
+      - key: prometheus
+        operator: In
+        values:
+        - internal-service-monitor
 ---
 apiVersion: v1
 kind: Service
@@ -66,4 +66,4 @@ spec:
       protocol: TCP
       targetPort: 9090
   selector:
-    prometheus: prometheus
+    prometheus: internal-service-monitor

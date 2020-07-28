@@ -1,17 +1,6 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: test-grafana-dashboards
-  namespace: test
-  labels:
-    role: grafana-dashboardfiles
-    grafana: test
-data:
-    {{- (.Files.Glob "test-dashboard.json").AsConfig | nindent 2 }}
----
-kind: ConfigMap
-apiVersion: v1
-metadata:
   name: test-grafana-dashboard-config
   namespace: test
   labels:
@@ -128,8 +117,6 @@ spec:
           volumeMounts:
             - name: grafana-dash-config
               mountPath: /etc/grafana/provisioning/dashboards
-            - name: dashboard-templates
-              mountPath: /var/lib/grafana/dashboards
             - name: grafana-source-config
               mountPath: /etc/grafana/provisioning/datasources
       volumes:
@@ -139,9 +126,6 @@ spec:
         - name: grafana-dash-config
           configMap:
             name: test-grafana-dashboard-config
-        - name: dashboard-templates
-          configMap:
-            name: test-grafana-dashboards
       imagePullSecrets:
         - name: docregistry-secret
 ---

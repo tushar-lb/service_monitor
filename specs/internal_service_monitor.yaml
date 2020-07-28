@@ -4,12 +4,14 @@ metadata:
   name: internal-service-monitor
   namespace: test
   labels:
+    name: internal-service-monitor
     app.kubernetes.io/component: internal-service-monitor
 spec:
   selector:
+    name: internal-service-monitor
     app.kubernetes.io/component: internal-service-monitor
   ports:
-    - name: url-req-mon-rest
+    - name: url-rest
       protocol: TCP
       port: 10001
       targetPort: 10001
@@ -20,10 +22,12 @@ metadata:
   name: internal-service-monitor
   namespace: test
   labels:
+    name: internal-service-monitor
     app.kubernetes.io/component: internal-service-monitor
 spec:
   selector:
     matchLabels:
+      name: internal-service-monitor
       app.kubernetes.io/component: internal-service-monitor
   replicas: 1
   minReadySeconds: 0
@@ -35,6 +39,7 @@ spec:
   template:
     metadata:
       labels:
+        name: internal-service-monitor
         app.kubernetes.io/component: internal-service-monitor
     spec:
       affinity:
@@ -65,8 +70,15 @@ spec:
           timeoutSeconds: 120
           periodSeconds: 20
         ports:
-          - name: url-req-mon-rest
+          - name: url-rest
             containerPort: 10001
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
         command:
         - /internal-service-monitor
       imagePullSecrets:
