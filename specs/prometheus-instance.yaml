@@ -8,7 +8,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: prometheus
-  namespace: test
 rules:
   - apiGroups: [""]
     resources:
@@ -47,11 +46,11 @@ spec:
   logLevel: debug
   serviceAccountName: prometheus
   serviceMonitorSelector:
-      matchExpressions:
-      - key: prometheus
-        operator: In
-        values:
-        - internal-service-monitor
+    matchExpressions:
+    - key: prometheus
+      operator: In
+      values:
+      - internal-service-monitor
 ---
 apiVersion: v1
 kind: Service

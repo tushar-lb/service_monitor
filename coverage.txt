@@ -1,0 +1,25 @@
+=== RUN   TestURLs
+time="2020-07-29T01:17:54+05:30" level=info msg="URLs list: [https://httpstat.us/200 https://httpstat.us/503]"
+--- PASS: TestURLs (0.00s)
+=== RUN   TestURLsStatusCode
+time="2020-07-29T01:17:54+05:30" level=info msg="URLs list: [https://httpstat.us/200 https://httpstat.us/503]"
+time="2020-07-29T01:17:55+05:30" level=info msg="URL: [https://httpstat.us/200], Response time:[1343.000000], Status code:[200], URL up status set to: [1]"
+time="2020-07-29T01:17:56+05:30" level=info msg="URL: [https://httpstat.us/503], Response time:[343.000000], Status code:[503], URL up status set to: [0]"
+--- PASS: TestURLsStatusCode (1.69s)
+=== RUN   TestURLsUPStatus
+time="2020-07-29T01:17:56+05:30" level=info msg="URLs list: [https://httpstat.us/200 https://httpstat.us/503]"
+time="2020-07-29T01:17:56+05:30" level=info msg="URL: [https://httpstat.us/200], Response time:[498.000000], Status code:[200], URL up status set to: [1]"
+time="2020-07-29T01:17:56+05:30" level=info msg="URL: [https://httpstat.us/503], Response time:[346.000000], Status code:[503], URL up status set to: [0]"
+--- PASS: TestURLsUPStatus (0.85s)
+=== RUN   TestURLsResponseTimeInMS
+time="2020-07-29T01:17:56+05:30" level=info msg="URLs list: [https://httpstat.us/200 https://httpstat.us/503]"
+time="2020-07-29T01:17:57+05:30" level=info msg="URL: [https://httpstat.us/200], Response time:[578.000000], Status code:[200], URL up status set to: [1]"
+time="2020-07-29T01:17:57+05:30" level=info msg="URL: [https://httpstat.us/503], Response time:[393.000000], Status code:[503], URL up status set to: [0]"
+--- PASS: TestURLsResponseTimeInMS (0.97s)
+=== RUN   TestSampleQueryVariables
+--- PASS: TestSampleQueryVariables (0.00s)
+=== RUN   TestSampleQueryName
+--- PASS: TestSampleQueryName (0.00s)
+PASS
+coverage: 65.5% of statements
+ok  	github.com/tusharraut1994/internal-service-monitor	3.524s

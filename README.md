@@ -44,6 +44,17 @@ $ kubectl apply -f specs/internal_service_monitor.yaml
 $ kubectl apply -f specs/prometheus_service_monitor.yaml
 ```
 
+3. Update the prometheus instance and add serviceMonitorSelector label.
+ex:
+```
+serviceMonitorSelector:
+  matchExpressions:
+  - key: prometheus
+    operator: In
+    values:
+    - internal-service-monitor
+```
+
 ## Deploy Instructions - Create Prometheus and Grafana
 
 1. Create internal-service-monitor deployment and service on kubernetes
@@ -94,8 +105,3 @@ servicemonitor.monitoring.coreos.com/internal-service-monitor-sm   7m55s
 
 7. Login to Grafana UI using: `http://NODE_IP:NODE_PORT` nodePort of `grafana` service. Login with default credentials: admin/admin . 
    After successful login upload test dashboard.
-
-## Sample Prometheus Queries
-
-
-## Sample Grafana Dashboard

@@ -4,6 +4,23 @@ DOCKER_HUB_REGISTRY_TAG?=1.0.0
 
 REGISTRY_IMG=$(DOCKER_HUB_REPO)/$(DOCKER_HUB_REGISTRY_IMAGE):$(DOCKER_HUB_REGISTRY_TAG)
 
+export GO111MODULE=on
+export GOFLAGS = -mod=vendor
+HAS_GOMODULES := $(shell go help mod why 2> /dev/null)
+ifndef HAS_GOMODULES
+$(error service monitor can only be built with go 1.14+ which supports go modules)
+endif
+
+ifndef PKGS
+PKGS := $(shell GOFLAGS=-mod=vendor go list ./... 2>&1 | grep -v 'pkg/client/informers/externalversions' | grep -v versioned | grep -v 'pkg/apis/core')
+endif
+
+GO_FILES := $(shell find . -name '*.go' | grep -v vendor | \
+                                   grep -v '\.pb\.go' | \
+                                   grep -v '\.pb\.gw\.go' | \
+                                   grep -v 'externalversions' | \
+                                   grep -v 'versioned' | \
+                                   grep -v 'generated')
 
 BASE_DIR    := $(shell git rev-parse --show-toplevel)
 GIT_SHA     := $(shell git rev-parse --short HEAD)
@@ -29,6 +46,16 @@ deploy:
 
 test:
 	echo "" > coverage.txt
+	for pkg in $(PKGS);	do \
+		go test -v -coverprofile=profile.out -covermode=atomic -coverpkg=$${pkg}/... $${pkg} || exit 1; \
+		if [ -f profile.out ]; then \
+			cat profile.out >> coverage.txt; \
+			rm profile.out; \
+		fi; \
+	done
+	sed -i '/mode: atomic/d' coverage.txt
+	sed -i '1d' coverage.txt
+	sed -i '1s/^/mode: atomic\n/' coverage.txt
 
 lint:
 	go get -u golang.org/x/lint/golint
