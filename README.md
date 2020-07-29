@@ -104,3 +104,6 @@ servicemonitor.monitoring.coreos.com/internal-service-monitor-sm   7m55s
 6. Prometheus UI will be accessible on: `http://NODE_IP:NODE_PORT` nodePort of `prometheus` service.
 
 7. Login to Grafana UI using: `http://NODE_IP:NODE_PORT` nodePort of `grafana` service. Login with default credentials: `admin/admin`. After successful login upload test dashboard json template.
+
+## Sample Grafana Dashborads & Prometheus Queries Available Here:
+https://github.com/tusharraut1994/service_monitor/blob/master/dashboards.md
