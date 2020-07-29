@@ -2,7 +2,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: internal-service-monitor-sm
-  namespace: test
   labels:
     name: internal-service-monitor-sm
     prometheus: internal-service-monitor

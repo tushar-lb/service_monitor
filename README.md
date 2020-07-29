@@ -30,18 +30,16 @@ $ make
 $ make container deploy
 ```
 
-NOTE: Used `test` namespace in all specs.
-
 ## Deploy Instructions - Existing Prometheus and Grafana
 
 1. Create internal-service-monitor deployment and service on kubernetes
 ```console
-$ kubectl apply -f specs/internal_service_monitor.yaml
+$ kubectl apply -f specs/internal_service_monitor.yaml --namespace test
 ```
 
 2. Create prometheus service monitor
 ```console
-$ kubectl apply -f specs/prometheus_service_monitor.yaml
+$ kubectl apply -f specs/prometheus_service_monitor.yaml --namespace test
 ```
 
 3. Update the prometheus instance and add serviceMonitorSelector label.
@@ -56,6 +54,8 @@ serviceMonitorSelector:
 ```
 
 ## Deploy Instructions - Create Prometheus and Grafana
+
+NOTE: Used `test` namespace in all specs.
 
 1. Create internal-service-monitor deployment and service on kubernetes
 ```console
@@ -103,5 +103,4 @@ servicemonitor.monitoring.coreos.com/internal-service-monitor-sm   7m55s
 
 6. Prometheus UI will be accessible on: `http://NODE_IP:NODE_PORT` nodePort of `prometheus` service.
 
-7. Login to Grafana UI using: `http://NODE_IP:NODE_PORT` nodePort of `grafana` service. Login with default credentials: admin/admin . 
-   After successful login upload test dashboard.
+7. Login to Grafana UI using: `http://NODE_IP:NODE_PORT` nodePort of `grafana` service. Login with default credentials: `admin/admin`. After successful login upload test dashboard json template.
