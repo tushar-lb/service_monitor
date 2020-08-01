@@ -12,7 +12,7 @@ $(error service monitor can only be built with go 1.14+ which supports go module
 endif
 
 ifndef PKGS
-PKGS := $(shell GOFLAGS=-mod=vendor go list ./... 2>&1 | grep -v 'pkg/client/informers/externalversions' | grep -v versioned | grep -v 'pkg/apis/core')
+PKGS := $(shell GOFLAGS=-mod=vendor go list ./... 2>&1)
 endif
 
 GO_FILES := $(shell find . -name '*.go' | grep -v vendor | \
@@ -31,7 +31,7 @@ BUILD_OPTIONS := -ldflags=$(LDFLAGS)
 
 .DEFAULT_GOAL: all
 
-all: internal-service-monitor lint 
+all: internal-service-monitor pretest test
 
 internal-service-monitor:
 	@echo "Bin directory: $(BIN)"
@@ -53,9 +53,6 @@ test:
 			rm profile.out; \
 		fi; \
 	done
-	sed -i '/mode: atomic/d' coverage.txt
-	sed -i '1d' coverage.txt
-	sed -i '1s/^/mode: atomic\n/' coverage.txt
 
 lint:
 	go get -u golang.org/x/lint/golint
@@ -87,7 +84,7 @@ gocyclo:
 	go get -u github.com/fzipp/gocyclo
 	gocyclo -over 15 $(GO_FILES)
 
-pretest: lint vet errcheck staticcheck
+pretest: lint vet staticcheck
 
 imports:
 	goimports -w $(GO_FILES)

@@ -83,7 +83,7 @@ func main() {
 	// Start /metrics handler and listen on port 10001
 	go startListener()
 	// Get list of urls
-	for true {
+	for {
 		URLsList := getURLsList()
 		if len(URLsList) > 0 {
 			for _, url := range URLsList {
