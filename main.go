@@ -16,6 +16,8 @@ const (
 	serviceMonitorPort           = 10001
 	metricsHandler               = "/metrics"
 	interval                     = 5 * time.Second
+	serviceURLOne                = "https://httpstat.us/200"
+	serviceURLtwo                = "https://httpstat.us/503"
 )
 
 var (
@@ -61,7 +63,9 @@ func getURLDetails(url string) (int, int, float64) {
 }
 
 func getURLsList() []string {
-	URLsList := []string{"https://httpstat.us/200", "https://httpstat.us/503"}
+	URLsList := make([]string, 2)
+	URLsList[0] = serviceURLOne
+	URLsList[1] = serviceURLtwo
 	logrus.Infof("URLs list: %s", URLsList)
 	return URLsList
 }
