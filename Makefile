@@ -31,7 +31,7 @@ BUILD_OPTIONS := -ldflags=$(LDFLAGS)
 
 .DEFAULT_GOAL: all
 
-all: internal-service-monitor pretest test
+all: internal-service-monitor test
 
 internal-service-monitor:
 	@echo "Bin directory: $(BIN)"
